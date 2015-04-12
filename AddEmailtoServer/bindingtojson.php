@@ -1,8 +1,7 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <title id='Description'>This example shows how to create a Grid from JSON data.</title>
-    <link rel="stylesheet" href="../../../scrolling/jqwidgets/styles/jqx.base.css" type="text/css" />
+    <title id='Description'>Sending Emails to EPs</title>
 </head>
 <?php
 
