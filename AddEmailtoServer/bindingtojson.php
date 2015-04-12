@@ -54,13 +54,13 @@ while($i<=$arr['paging']['total_pages'])
             $output = curl_exec( $ch );
             curl_close($ch);
 
-$arr = json_decode($output,true);
-foreach($arr['data'] as $val)
-{
-        //echo $val['email'].'<br>';       
-		$query = "INSERT INTO Emails (Email) VALUES ('{$val['email']}')";
-$result = $conn->query($query);	
-}
+	$arr = json_decode($output,true);
+	foreach($arr['data'] as $val)
+	{
+			//echo $val['email'].'<br>';       
+			$query = "INSERT INTO Emails (Email) VALUES ('{$val['email']}')";
+	$result = $conn->query($query);	
+	}
 $i=$i+1;
 }
 
