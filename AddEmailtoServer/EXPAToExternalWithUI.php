@@ -26,7 +26,8 @@
 				$("#SendMail").click(function () {
 					 var Content=document.getElementById("Content").value;
 					 var token = document.getElementById("token").value;
-					 window.location="?Content="+Content+" &token="+token;
+					 if(Content==""||token=="")alert("Please Enter the fields");
+					 else window.location="?Content="+Content+" &token="+token;
                 });
             });
 	</script>
