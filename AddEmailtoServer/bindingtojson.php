@@ -6,6 +6,11 @@
 </head>
 <?php
 
+require_once('SimpleEmailService.php');
+require_once('SimpleEmailServiceMessage.php');
+require_once('SimpleEmailServiceRequest.php');
+
+
 if(!function_exists("curl_init")) die("cURL extension is not installed");
 
 $url = 'https://gis-api.aiesec.org/v1/people.json?access_token=43a75487c59054e14384d0faa8815b2ab4929c2b6ab7b090529b2d12f03209d0&page=1&per_page=1000';
@@ -64,7 +69,31 @@ while($i<=$arr['paging']['total_pages'])
 $i=$i+1;
 }
 
+// Sending Mail to the people on the database
+		$query = "SELECT * FROM Emails";
+		$Email="";
+		$ses = new SimpleEmailService('AKIAITPQIF7MGPQAUE2Q', 'tsY8WV+PGVPqhtCisYw3N10e/xvpCrFPKXDiLsZp');
+		$m = new SimpleEmailServiceMessage();
 
+		$result = $conn->query($query);
+		// need to change from sandbox inorder to send to unverified email addresses
+		foreach($result as $Email ) 
+		{
+		// verifying email address as before my account to be able to send to unverified email addresses so this is not an efficient solution
+			$ses->verifyEmailAddress($Email['Email']);
+			
+			$m->addTo($Email['Email']);
+			$m->setFrom('maged.zaklama@aiesec.net');
+			$m->setSubject('testing');
+			$html="<b>Dear friend</b> <br> I hope you are doing well.<br> BestRegards,<br> Maged Zaklama";
+			$text="";
+			$m->setMessageFromString($text, $html);
+			$ses->sendEmail($m);
+			//$m->setMessageFromString('This is the message body.');
+			//print_r($ses->sendEmail($m));
+			//$Email=$Email['Email'];
+			//echo nl2br($message);
+		}
 		
 	?>
 <body class='default'>
